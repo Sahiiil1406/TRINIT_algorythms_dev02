@@ -1,3 +1,70 @@
-const flashcard=require("../models/flashcards.js")
+const Flashcard=require("../models/flashcards.js")
 
 //create flashcard
+const createFlashcard = async (req, res) => {
+  try {
+    const {title,content,language}=req.body;
+    const createdBy=req.user._id
+    const newFlashcard =await Flashcard.create(
+      {createdBy,title,content,language}
+    )
+    return res.json({
+        message: "Flashcard created successfully",
+        newFlashcard
+        });
+
+} catch (error) {
+   return res.status(409).json({ message: error.message });
+  }
+}; 
+
+//get flashcard
+const getFlashCard = async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+    const createdBy=req.user._id
+    
+    const flashcard = await Flashcard.find({createdBy});
+    
+    return res.json({ message: "get all flashcard",
+    flashcard,
+    });
+  } catch (error) {
+    return res.status(409).json({ message: error.message });
+  }
+};
+
+//delete flashcard
+const deleteFlashCard = async (req, res) => {
+  try {
+    const id=req.params.id
+    const flashcard = await Flashcard.findByIdAndDelete(id);
+    return res.json({ message: "Flashcard deleted successfully",
+    flashcard,
+    });
+  } catch (error) {
+    return res.status(409).json({ message: error.message });
+  }
+};
+
+//get flashcard by id
+const getFlashCardById = async (req, res) => {
+  try {
+    const id=req.params.id
+    const flashcard = await Flashcard.findById(id);
+    return res.json({ message: "get flashcard by id",
+    flashcard,
+    });
+  } catch (error) {
+    return res.status(409).json({ message: error.message });
+  }
+};
+
+
+module.exports = { 
+    createFlashcard, 
+    getFlashCard, 
+    deleteFlashCard,
+    getFlashCardById };

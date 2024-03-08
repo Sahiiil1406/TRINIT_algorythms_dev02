@@ -1,11 +1,10 @@
 const mongoose=require("mongoose")
 const User=require("./user.model.js")
-const Tutor=require("./tutor.models.js")
 
 const classSchema=new mongoose.Schema({
     instructor:{
        type:mongoose.Types.ObjectId,
-       ref:Tutor
+       ref:User
     },
     student:{
        type:mongoose.Types.ObjectId,
@@ -19,6 +18,10 @@ const classSchema=new mongoose.Schema({
     },
     slots:{
         type:String
+    },
+    booked:{
+        type:Boolean,
+        default:false
     }
 },{timestamps:true})
 

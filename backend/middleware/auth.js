@@ -19,3 +19,4 @@ const auth = async (req,res,next)=>{
         return res.status(401).json({status:'failed',message:'Not authorized to access this route'})
     }
 }
+module.exports = auth

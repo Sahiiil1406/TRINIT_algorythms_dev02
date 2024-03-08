@@ -3,9 +3,11 @@ const cors=require('cors')
 const cookieParser = require('cookie-parser')
 const userRouter = require('./routes/user.routes')
 const connectDB = require('./utils/db')
+const flashRouter = require('./routes/flashcard.routes')
+const classRouter = require('./routes/classes.routes')
 require('dotenv').config();
 const app=express()
-const PORT=process.env.PORT || 2000
+const PORT=process.env.PORT || 1406
 
 
 //connectdb
@@ -23,6 +25,8 @@ app.get('/',(req,res)=>{
     })
 })
 app.use('/user',userRouter)
+app.use('/flashcard',flashRouter)
+app.use("/classes",classRouter)
 
 app.listen(PORT,()=>{
     console.log(`server started at ${PORT}`)

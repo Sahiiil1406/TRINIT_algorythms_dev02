@@ -14,6 +14,19 @@ const userSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+    roles:{
+        type:String,
+        enum:["user","tutor"]
+    },
+    experience:{
+        type: String,
+    },
+    pricing:{
+        type: String,
+    },
+    language:{
+       type:[String]
     }
 },{timestamps:true})    
 userSchema.pre('save', async function(next) {

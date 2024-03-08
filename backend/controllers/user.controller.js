@@ -4,9 +4,9 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const signupUser=async(req,res)=>{
-    const {name,email,password}=req.body
+    const {name,email,password,roles}=req.body
     try {
-        const user = await User.create({name,email,password})
+        const user = await User.create({name,email,password,roles})
         return res.status(201).json({status:'success',user})
     } catch (error) {            
         return res.status(400).json({status:'failed',error})
@@ -49,6 +49,21 @@ const logoutUser=async(req,res)=>{
         httpOnly:true
     })
     return res.status(200).json({status:'success',data:{}})
+}
+
+//update user
+const updateUser=async(req,res)=>{
+    try {
+        const {name,email,password}=req.body
+        const user = await User.findByIdAndUpdate(req.params.id,{name,email,password,
+            experience,pricing,language})
+        if(!user){
+            return res.status(400).json({status:'failed',message:'User not found'})
+        }
+        return res.status(200).json({status:'success',user})
+    } catch (error) {
+        return res.status(400).json({status:'failed',error})
+    }
 }
 
 module.exports={signupUser,loginUser,logoutUser}
