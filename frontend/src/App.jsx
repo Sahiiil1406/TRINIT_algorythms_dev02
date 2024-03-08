@@ -6,13 +6,10 @@ import "./App.css";
 import { AlertDialogDemo } from "./components/AlertDialogDemo";
 
 import { Signup } from "./auth/Signup";
+import Profile from "./pages/tutor/Profile";
 
 function App() {
-	return (
-		<>
-			<Signup />
-		</>
-	);
+	return <Profile />;
 }
 
 export default App;
