@@ -12,6 +12,7 @@ import Flipcard from "./pages/student/components/Flipcard";
 import Login from "./auth/Login";
 import Navbar from "./components/Navbar";
 import StudentDashboard from "./pages/student/StudentDashboard";
+import TutorDashboard from "./pages/tutor/TutorDashboard";
 
 function App() {
 	return (
@@ -36,6 +37,7 @@ function App() {
 					<Route path="/flip" element={<Flipcard />} />
 					<Route path="/student" element={<StudentDashboard />} />
 					<Route path="/video" element={<Videocall />} />
+					<Route path="/tutor" element={<TutorDashboard />} />
 				</Routes>
 			</div>
 		</>

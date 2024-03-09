@@ -15,11 +15,14 @@ import {
 //import { ResponsiveBar } from "@nivo/bar"
 export default function Profile() {
 	return (
-		<Card className="w-full max-w-3xl">
+		<Card className="w-full max-w-3xl border-none">
 			<CardHeader className="space-y-8">
 				<div className="flex flex-col items-center space-y-2">
-					<Avatar className="w-16 h-16">
-						<AvatarImage alt="User avatar" src="/placeholder-user.jpg" />
+					<Avatar className="w-32 h-32 ">
+						<AvatarImage
+							alt="User avatar"
+							src="https://robohash.org/text.png"
+						/>
 						<AvatarFallback>JD</AvatarFallback>
 					</Avatar>
 					<div className="text-center">
