@@ -4,8 +4,9 @@ import { Button } from "./ui/button";
 import { PopoverTrigger, PopoverContent, Popover } from "./ui/popover";
 
 export default function Navbar() {
+	const authenticated = true;
 	return (
-		<header className="flex items-center h-16 px-4 border-b w-full shrink-0 md:px-6 fixed top-0 left-0">
+		<header className="flex items-center h-16 px-4 border-b w-full shrink-0 md:px-6 fixed top-0 left-0 bg-white z-30">
 			<Link className="hidden sm:flex" to="#">
 				<SunIcon className="h-6 w-6" />
 				<span className="sr-only">Acme Inc</span>
@@ -16,63 +17,80 @@ export default function Navbar() {
 				</Link>
 			</nav>
 			<div className="items-center hidden space-x-4 md:flex">
-				<div className="relative">
-					<Popover>
-						<PopoverTrigger asChild>
-							<Button
-								className="rounded-[30px] w-10 h-10 border-2 border-gray-100 border-gray-950 dark:border-gray-950"
-								size="icon"
-								variant="ghost"
-							>
-								<img
-									alt="Avatar"
-									className="rounded-full"
-									height={40}
-									layout="fixed"
-									placeholder="empty"
-									src="/placeholder.svg"
-									style={{
-										aspectRatio: "40/40",
-										objectFit: "cover",
-									}}
-									width={40}
-								/>
-								<span className="sr-only">Toggle user menu</span>
-							</Button>
-						</PopoverTrigger>
-						<PopoverContent className="w-56 p-2">
-							<div />
-							<div className="flex items-center space-x-2">
-								<img
-									alt="Avatar"
-									className="rounded-full"
-									height={40}
-									placeholder="empty"
-									src="/placeholder.svg"
-									style={{
-										aspectRatio: "40/40",
-										objectFit: "cover",
-									}}
-									width={40}
-								/>
-								<div className="space-y-1 leading-none">
-									<div className="font-semibold">Alice</div>
-									<div className="text-xs leading-none text-gray-500 dark:text-gray-400">
-										alice@example.com
+				{authenticated ? (
+					<div className="relative">
+						<Popover>
+							<PopoverTrigger asChild>
+								<Button
+									className="rounded-[30px] w-10 h-10 border-2 border-gray-100 border-gray-950 dark:border-gray-950"
+									size="icon"
+									variant="ghost"
+								>
+									<img
+										alt="Avatar"
+										className="rounded-full"
+										height={40}
+										placeholder="empty"
+										src="https://robohash.org/text.png"
+										style={{
+											aspectRatio: "40/40",
+											objectFit: "cover",
+										}}
+										width={40}
+									/>
+									<span className="sr-only">Toggle user menu</span>
+								</Button>
+							</PopoverTrigger>
+							<PopoverContent className="w-56 p-4 mr-4 space-y-4">
+								<div className="flex items-center space-x-2 ">
+									<img
+										alt="Avatar"
+										className="rounded-full"
+										height={40}
+										placeholder="empty"
+										src="https://robohash.org/text.png"
+										style={{
+											aspectRatio: "40/40",
+											objectFit: "cover",
+										}}
+										width={40}
+									/>
+									<div className="space-y-1 leading-none">
+										<div className="font-semibold">Alice</div>
+										<div className="text-xs leading-none text-gray-500 dark:text-gray-400">
+											alice@example.com
+										</div>
 									</div>
 								</div>
-							</div>
-							<Link
-								className="block w-full rounded-md bg-gray-100 px-3 py-2 text-sm font-medium
+								<Link
+									className="block w-full rounded-md bg-gray-100 px-3 py-2 text-sm font-medium
                 transition-colors hover:bg-gray-100/70 focus:bg-gray-100/70
                 dark:bg-gray-800 dark:hover:bg-gray-800/50 dark:focus:bg-gray-800/50"
-								to="#"
-							>
-								View Profile
-							</Link>
-						</PopoverContent>
-					</Popover>
-				</div>
+									to="/profile"
+								>
+									View Profile
+								</Link>
+								<Link
+									className="block w-full rounded-md bg-red-100 px-3 py-2 text-sm font-medium
+                transition-colors hover:bg-red-100/70 focus:bg-red-100/70 text-red-800
+                dark:bg-red-800 dark:hover:bg-red-800/50 dark:focus:bg-gray-800/50"
+									to="#"
+								>
+									Logout
+								</Link>
+							</PopoverContent>
+						</Popover>
+					</div>
+				) : (
+					<Link
+						className="block w-full rounded-md bg-gray-100 px-3 py-2 text-sm font-medium
+                transition-colors hover:bg-gray-100/70 focus:bg-gray-100/70
+                dark:bg-gray-800 dark:hover:bg-gray-800/50 dark:focus:bg-gray-800/50"
+						to="#"
+					>
+						Login
+					</Link>
+				)}
 			</div>
 		</header>
 	);

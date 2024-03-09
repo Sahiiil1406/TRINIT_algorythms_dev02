@@ -11,6 +11,7 @@ import Profile from "./pages/tutor/Profile";
 import Flipcard from "./pages/student/components/Flipcard";
 import Login from "./auth/Login";
 import Navbar from "./components/Navbar";
+import StudentDashboard from "./pages/student/StudentDashboard";
 
 function App() {
 	return (
@@ -25,7 +26,7 @@ function App() {
 					backgroundPosition: "center",
 					backgroundColor: "rgba(255, 255, 255, 0.1)",
 				}}
-				className="w-full h-[100vh] flex py-[100px] items-center justify-center overflow-y-scroll"
+				className="w-full h-[100vh] flex py-[100px] justify-center overflow-y-scroll mt-[40px]"
 			>
 				<Routes>
 					<Route path="/profile" element={<Profile />} />
@@ -33,6 +34,7 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="/main" element={<Main />} />
 					<Route path="/flip" element={<Flipcard />} />
+					<Route path="/student" element={<StudentDashboard />} />
 				</Routes>
 			</div>
 		</>
