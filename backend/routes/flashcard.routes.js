@@ -7,7 +7,7 @@ const auth = require('../middleware/auth')
 
 const flashRouter=express.Router()
 
-flashRouter.post('/createFlash',auth,createFlashcard)
+flashRouter.post('/createFlash',createFlashcard)
 flashRouter.get('/getFlash',getFlashCard)
 flashRouter.get('/deleteFlash/:id',deleteFlashCard)
 flashRouter.get('/getFlash/:id',getFlashCardById)

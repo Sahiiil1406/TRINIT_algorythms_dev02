@@ -13,6 +13,8 @@ import { Input } from "../../../components/ui/input";
 import { Button } from "../../../components/ui/button";
 export default function Flipcard() {
 	const [cards, setCards] = useState([]);
+	const [title, setTitle] = useState("");
+	const [content, setContent] = useState("");
 	const deleteCard = async (id) => {
 		try {
 			const response = await axios.get(
@@ -25,6 +27,20 @@ export default function Flipcard() {
 			console.log(error);
 		}
 	};
+
+	const create=async()=>{
+		try {
+			const response = await axios.post(
+				"http://localhost:1406/flashcard/createFlash",
+				{title,content}
+			);
+			const data = response.data;
+			console.log(data);
+			setCards([...cards,data.newFlashcard])
+		} catch (error) {
+			console.log(error);
+		}
+	}
 	useEffect(() => {
 		const getCards = async () => {
 			try {
@@ -40,10 +56,10 @@ export default function Flipcard() {
 			}
 		};
 		getCards();
-	}, [cards]);
+	}, []);
 
 	return (
-		<div className="w-full flex flex-col items-center  mx-auto mt-[-40px]">
+		<div className="w-full flex flex-col items-center  mx-auto mt-[-40px] overflow-y-scroll">
 			<Card className="w-full max-w-[1000px] p-2 space-y-5">
 				<CardTitle className="m-6">Add FlashCard</CardTitle>
 				<CardContent className="space-y-6">
@@ -53,7 +69,9 @@ export default function Flipcard() {
 							<Label htmlFor="question">Question Of Flash Card</Label>
 						</div>
 
-						<Input id="question" placeholder="Apple" required type="text" />
+						<Input id="question" placeholder="Apple" required type="text" 
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}/>
 					</div>
 					<div className="space-y-2">
 						<div className="flex items-center">
@@ -65,18 +83,20 @@ export default function Flipcard() {
 							placeholder="A red Coloured fruit"
 							required
 							type="text"
+							value={content}
+							onChange={(e) => setContent(e.target.value)}
 						/>
 					</div>
 				</CardContent>
 				<CardFooter>
 					{" "}
-					<Button className="w-full" type="submit">
+					<Button className="w-full" type="submit" onClick={create}>
 						Add Flash Card
 					</Button>
 				</CardFooter>
 			</Card>
 
-			<div className="grid grid-cols-4 grid-flow-row gap-4 w-full h-[100vh] p-[100px]">
+			<div className="grid grid-cols-4 grid-flow-row gap-4 w-full min-h-[100vh] p-[50px] bg-green-50">
 				{cards.map((card) => (
 					<Flip
 						key={card._id}

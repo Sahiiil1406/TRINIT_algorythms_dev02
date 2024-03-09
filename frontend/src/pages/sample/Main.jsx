@@ -2,7 +2,7 @@ import React from 'react'
 import axios from "axios";
 
 
-const Home = () => {
+const payment = (amount) => {
 
 
     const checkoutHandler = async (amount) => {
@@ -21,7 +21,7 @@ const Home = () => {
             description: "RAzorpay testing",
             image: "",
             order_id: order.id,
-            callback_url: "http://localhost:5173/paymentSucccess",
+            callback_url: "http://localhost:5173/student",
             prefill: {
                 name: "Sahil Kumar",
                 email: "sahil.kumar@example.com",
@@ -40,13 +40,14 @@ const Home = () => {
 
     return (
         <>
-        <div className='w-[100px] h-[100px] bg-slate-500'>
-           <div className='' >Price=400</div>
+        <div>
+           <div className='' ></div>
            <br />
            <button className='bg-red-500'onClick={checkoutHandler(100)}>Buy</button>
         </div>
+
         </>
     )
 }
 
-export default Home
+export default payment;

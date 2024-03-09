@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 import { Button } from "../../components/ui/button";
+import payment from "../sample/Main";
 import { ToggleGroup, ToggleGroupItem } from "../../components/ui/toggle-group";
 import {
 	CardTitle,
@@ -11,6 +13,7 @@ import {
 	Card,
 	CardFooter,
 } from "../../components/ui/card";
+import { Link } from "react-router-dom";
 import {
 	TableHead,
 	TableRow,
@@ -28,6 +31,33 @@ import {
 import axios from "axios";
 import { Separator } from "../../components/ui/separator";
 export default function StudentDashboard() {
+	const navigate=useNavigate();
+	const [session, setSession] = useState([]);
+	useEffect(() => {
+		const getSession = async () => {
+			try {
+				const res = await axios.get("http://localhost:1406/classes/getclasses");
+				const data = res.data;
+				console.log(data);
+				setSession(data.classes);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getSession();
+	}, []);
+
+    const enroll=async(id)=>{
+		try {
+			const res = await axios.post(`http://localhost:1406/classes/enrollInClass/${id}`);
+			const data = res.data;
+			console.log(data);
+			
+
+		} catch (error) {
+			console.log(error);
+		}
+	}
 	return (
 		<div className=" w-full max-w-[1000px] min-h-[1000px] space-y-6">
 			<Card className="w-full ">
@@ -58,11 +88,10 @@ export default function StudentDashboard() {
 					className="grid gap-4"
 					style={{ gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))" }}
 				>
-					<TutorCard />
-					<TutorCard />
-					<TutorCard />
-					<TutorCard />
-					<TutorCard />
+					{   
+						session.map((e)=>{
+						return (<TutorCard e={e} enroll={enroll} />)})}
+					
 				</CardContent>
 			</Card>
 		</div>
@@ -71,12 +100,13 @@ export default function StudentDashboard() {
 
 function Classes() {
 	const [classes, setclasses] = useState([]);
+	
 	useEffect(() => {
 		const getClasses = async () => {
 			try {
-				const res = await axios.get("http://localhost:1406/classes/getclasses");
+				const res = await axios.get("http://localhost:1406/classes/getClassesofstudent");
 				const data = res.data;
-				console.log(data.classes);
+				console.log("hello",data.classes);
 				setclasses(data.classes);
 			} catch (error) {
 				console.log(error);
@@ -84,6 +114,7 @@ function Classes() {
 		};
 		getClasses();
 	}, []);
+
 
 	return (
 		<div className="flex flex-col w-full gap-2 h-[300px]">
@@ -122,11 +153,37 @@ function Classes() {
 	);
 }
 
-function TutorCard() {
+function TutorCard({e,}) {
+	
 	const [slot, setSlot] = useState({
 		id: "",
 		slot: "",
 	});
+     
+	useEffect(() => {
+		const getSession = async () => {
+			try {
+				const res = await axios.get("http://localhost:1406/classes/getclasses");
+				const data = res.data;
+				console.log(data);
+				setSession(data.classes);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getSession();
+	}, []);
+
+    const enroll=async(id)=>{
+		try {
+			const res = await axios.get(`http://localhost:1406/classes/enroll/${id}`);
+			const data = res.data;
+			console.log(data);
+
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	function handleSLotSelect(value, id) {
 		setSlot({
@@ -136,7 +193,8 @@ function TutorCard() {
 	}
 	return (
 		<>
-			<Card className="w-full max-w-sm rounded-xl border">
+		
+			<Card className="w-full max-w-sm rounded-xl border" key={e._id}>
 				<CardHeader className="p-6 pb-1">
 					<div className="flex items-center space-x-4">
 						<div className="flex items-center space-x-3">
@@ -145,7 +203,7 @@ function TutorCard() {
 								<AvatarFallback>JD</AvatarFallback>
 							</Avatar>
 							<div>
-								<CardTitle className="text-xl">John Doe</CardTitle>
+								<CardTitle className="text-xl">{e.name} </CardTitle>
 								<CardDescription className="text-sm">
 									Visit Profile
 								</CardDescription>
@@ -155,7 +213,7 @@ function TutorCard() {
 				</CardHeader>
 				<CardContent className="grid gap-3 p-6">
 					<div className="flex items-center space-x-4">
-						<div className="w-16 text-sm font-bold">English :</div>
+						<div className="w-16 text-sm font-bold">{e.language} :</div>
 
 						<div className="ml-2 text-sm">Basic</div>
 					</div>
@@ -185,12 +243,15 @@ function TutorCard() {
 					<div className="flex justify-between w-full">
 						{" "}
 						<h1>
-							<b className="text-2xl">₹200 </b>/ hr
+							<b className="text-2xl">{e.price} </b>/ hr
 						</h1>
-						<Button size="sm">Proceed to Payment</Button>
+						<Link to="/main">
+						<Button size="sm" onClick={()=>enroll(e._id)}>Proceed to Payment</Button></Link>
 					</div>
 				</CardFooter>
 			</Card>
+		
+		
 		</>
 	);
 }

@@ -3,10 +3,10 @@ const Flashcard=require("../models/flashcards.js")
 //create flashcard
 const createFlashcard = async (req, res) => {
   try {
-    const {title,content,language}=req.body;
-    const createdBy=req.user._id|| ""
+    const {title,content}=req.body;
+    
     const newFlashcard =await Flashcard.create(
-      {createdBy,title,content,language}
+      {title,content}
     )
     return res.json({
         message: "Flashcard created successfully",
@@ -21,8 +21,7 @@ const createFlashcard = async (req, res) => {
 //get flashcard
 const getFlashCard = async (req, res) => {
   try {
-    
-    
+     
     const flashcard = await Flashcard.find({});
     
     return res.json({ message: "get all flashcard",
