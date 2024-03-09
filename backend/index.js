@@ -6,11 +6,26 @@ const userRouter = require('./routes/user.routes')
 const connectDB = require('./utils/db')
 const flashRouter = require('./routes/flashcard.routes')
 const classRouter = require('./routes/classes.routes')
-const Razorpay = require('razorpay')
+const {Server} = require('socket.io')
 require('dotenv').config();
 const app=express()
 const PORT=process.env.PORT || 1406
 
+//socket.io
+const io = new Server(3000)
+io.on('connection',(socket)=>{
+    console.log('user connected')
+
+    socket.on('shareId',(id)=>{
+        console.log(id)
+
+        socket.broadcast.emit('getId',id)
+    })
+
+    socket.on('disconnect',()=>{
+        console.log('user disconnected')
+    })
+})
 
 //connectdb
 connectDB()

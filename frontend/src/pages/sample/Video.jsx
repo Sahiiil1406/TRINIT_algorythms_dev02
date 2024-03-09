@@ -1,18 +1,30 @@
 import { useEffect, useRef, useState } from 'react';
+
+import {io} from 'socket.io-client'
+
 import Peer from 'peerjs';
 
+const socket = io('http://localhost:3000', { transports: ['websocket'] });
 function VideoCall() {
+
   const [peerId, setPeerId] = useState('');
   const [remotePeerIdValue, setRemotePeerIdValue] = useState('');
   const remoteVideoRef = useRef(null);
   const currentUserVideoRef = useRef(null);
   const peerInstance = useRef(null);
+  const[s,sets]=useState('')
 
   useEffect(() => {
+   
     const peer = new Peer();
+   socket.on('getId',(id)=>{
+      console.log(id) 
+      sets(id)
+   })
 
     peer.on('open', (id) => {
       setPeerId(id)
+      socket.emit('shareId',id)
     });
 
     peer.on('call', (call) => {
@@ -52,8 +64,8 @@ function VideoCall() {
   return (
     <div className="VideoCall">
       <h1>Current user id is {peerId}</h1>
-      <input type="text" value={remotePeerIdValue} onChange={e => setRemotePeerIdValue(e.target.value)} />
-      <button onClick={() => call(remotePeerIdValue)}>Call</button>
+    <input type="text" value={remotePeerIdValue} onChange={e => setRemotePeerIdValue(e.target.value)} />
+      <button onClick={() => call(s)}>Call</button>
       <div>
         <video ref={currentUserVideoRef} />
       </div>
