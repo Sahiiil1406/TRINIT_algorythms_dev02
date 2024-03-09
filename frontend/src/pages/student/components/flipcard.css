@@ -43,16 +43,32 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	line-height: 300px;
-	color: #03446a;
+
+	color: #036a3d;
 	text-align: center;
-	font-size: 60px;
+	font-size: 30px;
 	border-radius: 5px;
 	backface-visibility: hidden;
 }
 
+.front:hover{
+
+}
+
+.delete{
+	font-size: 20px;
+	border: 1px solid black;
+	height: 40px;	
+	border-radius: 20px;
+	width: 90px;
+	font-size: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
 .back {
-	background: #03446a;
+	background: #6da082;
 	color: white;
 	transform: rotateY(180deg);
 }

@@ -1,13 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import {
-	AvatarImage,
-	AvatarFallback,
-	Avatar,
-} from "../../components/ui/avatar";
-import { Separator } from "../../components/ui/separator";
-import { Button } from "../../components/ui/button";
-import { ToggleGroup, ToggleGroupItem } from "../../components/ui/toggle-group";
+
 import {
 	CardTitle,
 	CardHeader,
@@ -24,6 +16,7 @@ import {
 	TableBody,
 	Table,
 } from "../../components/ui/table";
+import axios from "axios";
 
 export default function StudentDashboard() {
 	return (
@@ -68,8 +61,23 @@ export default function StudentDashboard() {
 }
 
 function Classes() {
+	const [classes, setclasses] = useState([]);
+	useEffect(() => {
+		const getClasses = async () => {
+			try {
+				const res = await axios.get("http://localhost:1406/classes/getclasses");
+				const data = res.data;
+				console.log(data.classes);
+				setclasses(data.classes);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getClasses();
+	}, []);
+
 	return (
-		<div className="flex flex-col w-full gap-2 ">
+		<div className="flex flex-col w-full gap-2 h-[300px]">
 			<Card>
 				<CardHeader className="pb-0">
 					<CardTitle>Upcoming Classes</CardTitle>
@@ -82,28 +90,20 @@ function Classes() {
 									<TableHead className="w-[200px]">Class</TableHead>
 									<TableHead>Date</TableHead>
 									<TableHead>Time</TableHead>
-									<TableHead>Location</TableHead>
+									<TableHead>Duration</TableHead>
 								</TableRow>
 							</TableHeader>
 							<TableBody>
-								<TableRow>
-									<TableCell className="font-medium">Yoga</TableCell>
-									<TableCell>2023-08-01</TableCell>
-									<TableCell>10:00 AM</TableCell>
-									<TableCell>Main Studio</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell className="font-medium">Pilates</TableCell>
-									<TableCell>2023-08-02</TableCell>
-									<TableCell>11:00 AM</TableCell>
-									<TableCell>Room 2</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell className="font-medium">Spinning</TableCell>
-									<TableCell>2023-08-03</TableCell>
-									<TableCell>9:00 AM</TableCell>
-									<TableCell>Cardio Zone</TableCell>
-								</TableRow>
+								{classes.map((e) => {
+									return (
+										<TableRow key={e._id}>
+											<TableCell>{e.language}</TableCell>
+											<TableCell>{e.date}</TableCell>
+											<TableCell>{e.slots}</TableCell>
+											<TableCell>{e.duration}</TableCell>
+										</TableRow>
+									);
+								})}
 							</TableBody>
 						</Table>
 					</div>

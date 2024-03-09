@@ -5,14 +5,23 @@ import {
 	CardContent,
 	Card,
 } from "../components/ui/card";
+import { useState } from "react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import React from "react";
+import axios from "axios";
 
 export default function Login() {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	
+	const login=async()=>{
+		const res=await axios.post('http://localhost:1406/user/login',{email,password})
+		console.log(res.data)
+		document.cookie=`token=${res.data.token}`		
+	}
 	return (
 		<Card className="mx-auto max-w-sm flex-1">
 			<CardHeader className="space-y-1">
@@ -33,10 +42,12 @@ export default function Login() {
 						</div>
 
 						<Input
+						    value={email}
 							id="email"
 							placeholder="m@example.com"
 							required
 							type="email"
+							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
 					<div className="space-y-2">
@@ -46,9 +57,10 @@ export default function Login() {
 								Forgot your password?
 							</Link>
 						</div>
-						<Input id="password" required type="password" />
+						<Input id="password" required type="password" value={password} 
+						onChange={(e)=>{setPassword(e.target.value)}} />
 					</div>
-					<Button className="w-full" type="submit">
+					<Button className="w-full" type="submit" onClick={login}>
 						Login
 					</Button>
 					<Button className="w-full" variant="outline">

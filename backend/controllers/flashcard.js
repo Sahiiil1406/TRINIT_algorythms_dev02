@@ -4,7 +4,7 @@ const Flashcard=require("../models/flashcards.js")
 const createFlashcard = async (req, res) => {
   try {
     const {title,content,language}=req.body;
-    const createdBy=req.user._id
+    const createdBy=req.user._id|| ""
     const newFlashcard =await Flashcard.create(
       {createdBy,title,content,language}
     )
@@ -21,12 +21,9 @@ const createFlashcard = async (req, res) => {
 //get flashcard
 const getFlashCard = async (req, res) => {
   try {
-    if (!req.user) {
-      return res.status(403).json({ message: "Unauthorized" });
-    }
-    const createdBy=req.user._id
     
-    const flashcard = await Flashcard.find({createdBy});
+    
+    const flashcard = await Flashcard.find({});
     
     return res.json({ message: "get all flashcard",
     flashcard,
