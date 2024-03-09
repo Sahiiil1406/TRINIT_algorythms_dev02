@@ -1,15 +1,12 @@
 const Class=require("../models/classes.js")
 
 const createClass=async(req,res)=>{
-    const {language,duration,slots}=req.body
-    if(req.user.roles!="tutor"){
-        return res.status(400).
-        json({status:'failed',message:'You are not authorized to create a class'})
-    }
+    const {language,duration,slots,price}=req.body
     const instructor=req.user._id
+    const name=req.user.name || "sample"
     try {
         const newclass=await Class.create({
-            instructor,language,duration,slots})
+            instructor,language,duration,slots,price,name})
         return res.status(201).json({status:'success',newclass})
     } catch (error) {            
         return res.status(400).json({status:'failed',error})
@@ -19,6 +16,13 @@ const createClass=async(req,res)=>{
 const getClasses=async(req,res)=>{
     try {
         const classes = await Class.find({booked:false})
+        return res.status(200).json({status:'success',classes})
+    } catch (error) {
+        return res.status(400).json({status:'failed',error})
+    }}
+const getClassesofstudent=async(req,res)=>{
+    try {
+        const classes = await Class.find({booked:true})
         return res.status(200).json({status:'success',classes})
     } catch (error) {
         return res.status(400).json({status:'failed',error})
@@ -45,9 +49,8 @@ const deleteClass=async(req,res)=>{
 
 const enrollInClass=async(req,res)=>{
     try {
-        const user=req.user
         const classes=await Class.findByIdAndUpdate(req.params.id,{
-            $push:{students:user._id},booked:true
+            booked:true
         })
         return res.status(200).json({status:'success',classes})
     } catch (error) {
@@ -55,4 +58,5 @@ const enrollInClass=async(req,res)=>{
     }
 }
 module.exports={
-    createClass,getClasses,getclassbyId,deleteClass,enrollInClass}
+    createClass,getClasses,getclassbyId,deleteClass,enrollInClass,
+    getClassesofstudent}

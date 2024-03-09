@@ -13,11 +13,20 @@ const classSchema=new mongoose.Schema({
     language:{
         type:String
     },
+    name:{
+        type:String
+    },
     duration:{
         type:Number
     },
     slots:{
         type:String
+    },
+    date:{
+        type:String
+    },
+    price:{
+        type:Number
     },
     booked:{
         type:Boolean,
