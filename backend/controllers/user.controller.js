@@ -4,9 +4,10 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const signupUser=async(req,res)=>{
-    const {name,email,password,roles}=req.body
+    const {name,email,password,roles,experience,pricing,language}=req.body
     try {
-        const user = await User.create({name,email,password,roles})
+        const user = await User.create({name,email,password,pricing,
+            roles,experience,language})
         return res.status(201).json({status:'success',user})
     } catch (error) {            
         return res.status(400).json({status:'failed',error})
