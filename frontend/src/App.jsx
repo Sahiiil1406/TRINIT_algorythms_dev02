@@ -1,5 +1,6 @@
 import React from "react";
 import Main from "./pages/sample/Main";
+import Videocall from "./pages/sample/Video";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
@@ -34,7 +35,10 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="/main" element={<Main />} />
 					<Route path="/flip" element={<Flipcard />} />
+
 					<Route path="/student" element={<StudentDashboard />} />
+					<Route path="/video" element={<Videocall/>} />
+
 				</Routes>
 			</div>
 		</>
