@@ -12,6 +12,7 @@ import {
 	Card,
 } from "../../components/ui/card";
 
+//import { ResponsiveBar } from "@nivo/bar"
 export default function Profile() {
 	return (
 		<Card className="w-full max-w-3xl">

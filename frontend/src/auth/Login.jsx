@@ -56,7 +56,7 @@ export default function Login() {
 				</div>
 				<div className="mt-4 text-center text-sm">
 					Don't have an account?
-					<Link className="underline" to="#">
+					<Link className="underline" to="/signup">
 						Sign up
 					</Link>
 				</div>
