@@ -14,7 +14,7 @@ const PORT=process.env.PORT || 1406
 //socket.io
 const io = new Server(3000)
 io.on('connection',(socket)=>{
-    console.log('user connected')
+   // console.log('user connected')
 
     socket.on('shareId',(id)=>{
         console.log(id)
@@ -23,7 +23,7 @@ io.on('connection',(socket)=>{
     })
 
     socket.on('disconnect',()=>{
-        console.log('user disconnected')
+        //console.log('user disconnected')
     })
 })
 

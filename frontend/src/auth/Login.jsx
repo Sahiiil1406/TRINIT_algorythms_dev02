@@ -20,8 +20,7 @@ export default function Login() {
 	const login=async()=>{
 		const res=await axios.post('http://localhost:1406/user/login',{email,password})
 		console.log(res.data)
-		window.location.href='/profile'
-
+		document.cookie=`token=${res.data.token}`		
 	}
 	return (
 		<Card className="mx-auto max-w-sm flex-1">
