@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { useState } from "react";
 import { ToggleGroup, ToggleGroupItem } from "../components/ui/toggle-group";
-
+import axios from "axios";
 import { Separator } from "../components/ui/separator";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
@@ -20,6 +20,17 @@ import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
 
 export function Signup() {
 	const [role, setRole] = useState("student");
+	const [languages, setLanguages] = useState([]);
+	const[name,setName]=useState('')
+	const[email,setEmail]=useState('')
+	const [password,setPassword]=useState('')
+	const [experience,setExperience]=useState('')
+
+	const signup=async()=>{
+		const res=await axios.post('http://localhost:1406/user/signup',{name,email,password,role,languages,experience})
+		console.log(res.data)
+		window.location.href='/login'
+	}
 	const handleRole = (e) => {
 		setRole(e.target.value);
 	};
@@ -34,7 +45,8 @@ export function Signup() {
 					<div className="grid w-full items-center gap-4">
 						<div className="flex flex-col space-y-1.5">
 							<Label htmlFor="name">Name</Label>
-							<Input id="name" placeholder="Name of your project" />
+							<Input id="name" placeholder="Name of your project" 
+							value={name} onChange={(e)=>setName(e.target.value)}/>
 						</div>
 
 						<div className="space-y-4 ">
@@ -52,13 +64,15 @@ export function Signup() {
 									placeholder="m@example.com"
 									required
 									type="email"
-								/>
+									value={email} onChange={(e)=>setEmail(e.target.value)}/>
+								
 							</div>
 							<div className="space-y-2">
 								<div className="flex items-center">
 									<Label htmlFor="password">Password</Label>
 								</div>
-								<Input id="password" required type="password" />
+								<Input id="password" required type="password"
+								value={password} onChange={(e)=>setPassword(e.target.value)}/>
 							</div>
 							<Separator />
 							<Label className="font-bold">You are a ? </Label>
@@ -90,19 +104,31 @@ export function Signup() {
 											variant="outline"
 											type="multiple"
 											className="flex justify-start "
+											onChanged={(value) => {
+												setLanguages(...languages, value);
+											}}
 										>
-											<ToggleGroupItem value="bold" aria-label="Toggle bold">
+											<ToggleGroupItem value="bold" aria-label="Toggle bold"
+											onChanged={(value) => {
+												setLanguages(...languages, "English");
+											}}>
 												English
 											</ToggleGroupItem>
 											<ToggleGroupItem
 												value="italic"
 												aria-label="Toggle italic"
+												onChanged={(value) => {
+													setLanguages(...languages, "Hindi");
+												}}
 											>
 												Hindi
 											</ToggleGroupItem>
 											<ToggleGroupItem
 												value="underline"
 												aria-label="Toggle underline"
+												onChanged={(value) => {
+													setLanguages(...languages, "Kannada");
+												}}
 											>
 												Kannada
 											</ToggleGroupItem>
@@ -118,6 +144,7 @@ export function Signup() {
 											placeholder="Share your Experience"
 											required
 											type="email"
+											value={experience} onChange={(e)=>setExperience(e.target.value)}
 										/>
 									</div>
 								</div>
@@ -127,7 +154,7 @@ export function Signup() {
 				</form>
 			</CardContent>
 			<CardFooter className="flex justify-between">
-				<Button className="w-full" type="submit">
+				<Button className="w-full" type="submit" onClick={signup}>
 					Sign up
 				</Button>
 			</CardFooter>
