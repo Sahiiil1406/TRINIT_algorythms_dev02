@@ -1,3 +1,4 @@
+const paymentRouter =require('./routes/payment.routes')
 const express=require('express')
 const cors=require('cors')
 const cookieParser = require('cookie-parser')
@@ -5,6 +6,7 @@ const userRouter = require('./routes/user.routes')
 const connectDB = require('./utils/db')
 const flashRouter = require('./routes/flashcard.routes')
 const classRouter = require('./routes/classes.routes')
+const Razorpay = require('razorpay')
 require('dotenv').config();
 const app=express()
 const PORT=process.env.PORT || 1406
@@ -18,6 +20,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cors())
 app.use(cookieParser())
 
+
 //routes
 app.get('/',(req,res)=>{
     return res.json({
@@ -27,6 +30,7 @@ app.get('/',(req,res)=>{
 app.use('/user',userRouter)
 app.use('/flashcard',flashRouter)
 app.use("/classes",classRouter)
+app.use("/api",paymentRouter)
 
 app.listen(PORT,()=>{
     console.log(`server started at ${PORT}`)
