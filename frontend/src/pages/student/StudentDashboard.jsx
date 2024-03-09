@@ -1,5 +1,8 @@
 import React from "react";
-
+import { useState } from "react";
+import { useEffect } from "react";
+import { Button } from "../../components/ui/button";
+import { ToggleGroup, ToggleGroupItem } from "../../components/ui/toggle-group";
 import {
 	CardTitle,
 	CardHeader,
@@ -16,8 +19,14 @@ import {
 	TableBody,
 	Table,
 } from "../../components/ui/table";
-import axios from "axios";
+import {
+	Avatar,
+	AvatarImage,
+	AvatarFallback,
+} from "../../components/ui/avatar";
 
+import axios from "axios";
+import { Separator } from "../../components/ui/separator";
 export default function StudentDashboard() {
 	return (
 		<div className=" w-full max-w-[1000px] min-h-[1000px] space-y-6">
