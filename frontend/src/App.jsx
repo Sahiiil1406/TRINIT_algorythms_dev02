@@ -10,6 +10,7 @@ import Flipcard from "./pages/student/components/Flipcard";
 import Login from "./auth/Login";
 import Navbar from "./components/Navbar";
 import StudentDashboard from "./pages/student/StudentDashboard";
+import TutorDashboard from "./pages/tutor/TutorDashboard";
 import LobbyScreen from "../screens/Lobby";
 import RoomPage from "../screens/Room";
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="/room/:roomId" element={<RoomPage />} />
           <Route path="/lobby/:id" element={<LobbyScreen />} />
+          <Route path="/tutor" element={<TutorDashboard />} />
         </Routes>
       </div>
     </>
