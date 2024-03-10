@@ -2,11 +2,11 @@ const Class=require("../models/classes.js")
 
 const createClass=async(req,res)=>{
     const {language,duration,slots,price}=req.body
-    const instructor=req.user._id
-    const name=req.user.name || "sample"
+    const instructor=req.user._id ||""
+    const name=req.user.name || "teacher"
     try {
         const newclass=await Class.create({
-            instructor,language,duration,slots,price,name})
+            instructor,language,duration,slots,price:1050,name})
         return res.status(201).json({status:'success',newclass})
     } catch (error) {            
         return res.status(400).json({status:'failed',error})

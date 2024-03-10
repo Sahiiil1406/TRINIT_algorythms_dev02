@@ -4,7 +4,7 @@ const express=require("express")
 const auth=require("../middleware/auth.js")
 const classRouter=express.Router()
 
-classRouter.post("/create",auth,createClass)
+classRouter.post("/create",createClass)
 classRouter.get("/getclasses",getClasses)
 classRouter.get("/getclassesofStudent",getClassesofstudent)
 classRouter.get("/getclass/:id",getclassbyId)
