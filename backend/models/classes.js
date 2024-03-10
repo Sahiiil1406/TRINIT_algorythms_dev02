@@ -31,7 +31,12 @@ const classSchema=new mongoose.Schema({
     booked:{
         type:Boolean,
         default:false
+    },
+    status:{
+        type:String,
+        default:"notStarted"
     }
+
 },{timestamps:true})
 
 const Class=mongoose.model("Class",classSchema)
