@@ -26,7 +26,7 @@ export default function Login() {
     });
     console.log(res.data);
     document.cookie = `token=${res.data.token}`;
-    navigate("/student");
+    navigate("/tutor");
   };
   return (
     <Card className="mx-auto max-w-sm flex-1">

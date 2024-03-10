@@ -13,35 +13,36 @@ import StudentDashboard from "./pages/student/StudentDashboard";
 import TutorDashboard from "./pages/tutor/TutorDashboard";
 import LobbyScreen from "../screens/Lobby";
 import RoomPage from "../screens/Room";
+import Main from "./pages/sample/Main";
 function App() {
-	return (
-		<>
-			<Navbar />
-			<div
-				style={{
-					backgroundImage: `url("")`,
-					objectFit: "cover",
-					backgroundSize: "cover",
-					backgroundRepeat: "no-repeat",
-					backgroundPosition: "center",
-					backgroundColor: "rgba(255, 255, 255, 0.1)",
-				}}
-				className="w-full h-[100vh] flex py-[100px] justify-center overflow-y-scroll mt-[40px]"
-			>
-				<Routes>
-					<Route path="/profile" element={<Profile />} />
-					<Route path="/signup" element={<Signup />} />
-					<Route path="/login" element={<Login />} />
-
-					<Route path="/flip" element={<Flipcard />} />
-					<Route path="/student" element={<StudentDashboard />} />
-					<Route path="/room/:roomId" element={<RoomPage />} />
-					<Route path="/lobby/:id" element={<LobbyScreen />} />
-					<Route path="/tutor" element={<TutorDashboard />} />
-				</Routes>
-			</div>
-		</>
-	);
+  return (
+    <>
+      <Navbar />
+      <div
+        style={{
+          backgroundImage: `url("")`,
+          objectFit: "cover",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+        }}
+        className="w-full h-[100vh] flex py-[100px] justify-center overflow-y-scroll mt-[40px]"
+      >
+        <Routes>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/main" element={<Main />} />
+          <Route path="/flip" element={<Flipcard />} />
+          <Route path="/student" element={<StudentDashboard />} />
+          <Route path="/room/:roomId" element={<RoomPage />} />
+          <Route path="/lobby/:id" element={<LobbyScreen />} />
+          <Route path="/tutor" element={<TutorDashboard />} />
+        </Routes>
+      </div>
+    </>
+  );
 }
 
 export default App;
